@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
+
+body {
+    background-color: #FED9B7;
+    color: black;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100svh;
+    min-width: 100vw;
+    overflow: hidden;
+}
+
+header {
+    height: 6rem;
+    display: flex;
+}
+
+main {
+    height: calc(100vh - 6rem);
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+#logo {
+    color: black;
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 6rem;
+    text-decoration: none;
+
+    &:visited {
+        color: black;
+        text-decoration: none;
+    }
+}
+
+#container {
+    background-color: white;
+    border-radius: 1.4rem 1.4rem 0 0;
+    padding: 3rem;
+    height: 100%;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 14rem 5fr;
+
+    &>#sidebar {
+        border-right: solid 1px grey;
+        height: 90%;
+        grid-column: 1 / 2;
+
+        &>ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        & li {
+            font-size: 2rem;
+            margin: 2rem 0 2rem;
+            transition: 0.1s linear;
+            user-select: none;
+
+            &:hover {
+                color: grey;
+                cursor: pointer;
+            }
+        }
+
+        & li:last-child {
+            margin-top: 7rem;
+        }
+    }
+}
+
+#main-area {
+    font-size: 1.4rem;
+    grid-column: 2 / -1;
+    display: grid;
+    grid-auto-rows: 4rem;
+
+    &>#filters {
+        border-bottom: solid 1px grey;
+        height: 6rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+
+        &>#categories {
+            margin: 0 2rem;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        &>#importance {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+
+            &>div {
+                text-align: end;
+            }
+        }
+
+        & input,
+        label {
+            cursor: pointer;
+            user-select: none;
+        }
+    }
+}

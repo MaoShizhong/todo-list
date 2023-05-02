@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="../src/style.css">
+        <script src="../src/index.js" type="module"></script>
+        <title>TooDoo | Organise your life</title>
+    </head>
+
+    <body>
+        <header>
+            <a id="logo" href="#">
+                TooDoo
+            </a>
+        </header>
+        <main>
+            <div id="container">
+
+                <div id="sidebar">
+                    <ul>
+                        <li>All items</li>
+                        <li>Today</li>
+                        <li>This week</li>
+                        <li>Settings</li>
+                    </ul>
+                </div>
+
+                <div id="main-area">
+                    <div id="filters">
+                        <div id="categories">
+                            <b>Categories:</b>
+                            <div>
+                                <label for="tasks">Tasks</label>
+                                <input type="checkbox" id="tasks" name="tasks" value="tasks" checked>
+                            </div>
+                            <div>
+                                <label for="events">Events</label>
+                                <input type="checkbox" id="events" name="events" value="events" checked>
+                            </div>
+                            <div>
+                                <label for="reminders">Reminders</label>
+                                <input type="checkbox" id="reminders" name="reminders" value="reminders" checked>
+                            </div>
+                        </div>
+                        <div id="importance">
+                            <b>Importance:</b>
+                            <div>
+                                <div>
+                                    <label for="high">High</label>
+                                    <input type="checkbox" id="high" name="high" value="high" checked>
+                                </div>
+                                <div>
+                                    <label for="medium">Medium</label>
+                                    <input type="checkbox" id="medium" name="medium" value="medium" checked>
+                                </div>
+                                <div>
+                                    <label for="low">Low</label>
+                                    <input type="checkbox" id="low" name="low" value="low" checked>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="list">
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+    </body>
+
+</html>
