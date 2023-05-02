@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
 
+:root {
+    --teal: #72b4c5;
+}
+
 body {
     background-color: #FED9B7;
     color: black;
@@ -27,92 +31,133 @@ main {
 }
 
 #logo {
-    color: black;
+    color: var(--teal);
+    -webkit-text-stroke: 2px #50a3b8;
     font-size: 4rem;
     font-weight: bold;
     line-height: 6rem;
     text-decoration: none;
+}
 
-    &:visited {
-        color: black;
-        text-decoration: none;
-    }
+#logo:visited {
+    color: rgb(114, 180, 197);
+    text-decoration: none;
 }
 
 #container {
     background-color: white;
     border-radius: 1.4rem 1.4rem 0 0;
+    box-shadow: 10px 8px 5px rgba(48, 48, 48, 0.171);
     padding: 3rem;
     height: 100%;
     width: 90%;
-    display: grid;
-    grid-template-columns: 14rem 5fr;
+    display: flex;
+}
 
-    &>#sidebar {
-        border-right: solid 1px grey;
-        height: 90%;
-        grid-column: 1 / 2;
+#sidebar {
+    border-right: solid 1px grey;
+    height: 90%;
+    width: 13rem;
+    flex-shrink: 0;
+}
 
-        &>ul {
-            padding: 0;
-            list-style: none;
-        }
+ul {
+    padding: 0;
+    list-style: none;
+}
 
-        & li {
-            font-size: 2rem;
-            margin: 2rem 0 2rem;
-            transition: 0.1s linear;
-            user-select: none;
+li {
+    font-size: 2rem;
+    margin: 2rem 0 2rem;
+    transition: 0.1s linear;
+    user-select: none;
+}
 
-            &:hover {
-                color: grey;
-                cursor: pointer;
-            }
-        }
+li:hover {
+    color: grey;
+    cursor: pointer;
+}
 
-        & li:last-child {
-            margin-top: 7rem;
-        }
-    }
+ul>li:last-child {
+    margin-top: 7rem;
 }
 
 #main-area {
     font-size: 1.4rem;
-    grid-column: 2 / -1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#filters {
+    border-bottom: solid 1px grey;
+    height: 8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+#filters>* {
+    margin-left: 2rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+#categories {
+    justify-content: space-between;
+}
+
+.filter {
+    text-align: end;
+    margin: 0.2rem 0;
     display: grid;
-    grid-auto-rows: 4rem;
+    grid-template-columns: auto 1.2em;
+    gap: 0.5em;
+    cursor: pointer;
+    user-select: none;
+}
 
-    &>#filters {
-        border-bottom: solid 1px grey;
-        height: 6rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
+#importance>div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 
-        &>#categories {
-            margin: 0 2rem;
-            flex-shrink: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        &>#importance {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-
-            &>div {
-                text-align: end;
-            }
-        }
-
-        & input,
-        label {
-            cursor: pointer;
-            user-select: none;
-        }
+@media screen and (max-width: 1266px) {
+    #importance>div {
+        flex-direction: row !important;
+        gap: 2rem;
     }
+}
+
+#list {
+    padding: 2rem;
+}
+
+input[type='checkbox'] {
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    border: 4px solid var(--teal);
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+}
+
+input[type='checkbox']::before {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    transform: scale(0);
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transition: 90ms transform linear;
+    box-shadow: inset 1rem 1rem var(--teal);
+}
+
+input[type='checkbox']:checked::before {
+    transform: scale(1);
 }
