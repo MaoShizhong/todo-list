@@ -1,7 +1,7 @@
 {
-  "name": "restaurant-page-top",
+  "name": "todo-list-top",
   "version": "1.0.0",
-  "description": "Okay, this is a café not a restaurant...",
+  "description": "",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,6 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.7.3",
+    "postcss": "^8.4.23",
+    "postcss-loader": "^7.3.0",
+    "postcss-nested": "^6.0.1",
     "style-loader": "^3.3.2",
     "svg-inline-loader": "^0.8.2",
     "webpack": "^5.81.0",
