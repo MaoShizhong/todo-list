@@ -121,19 +121,17 @@ dialog[open] {
         &>div {
             display: flex;
             justify-content: space-between;
+
+            &:last-child {
+                margin-top: 2rem;
+            }
         }
 
         & textarea {
             height: 9rem;
-            width: 25rem;
+            width:25rem;
             padding: 0.4rem;
             resize: none;
-        }
-
-        &>div:last-child {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: space-between;
         }
     }
 }
