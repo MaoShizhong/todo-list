@@ -37,11 +37,11 @@ main {
     font-weight: bold;
     line-height: 6rem;
     text-decoration: none;
-}
 
-#logo:visited {
-    color: rgb(114, 180, 197);
-    text-decoration: none;
+    &:visited {
+        color: rgb(114, 180, 197);
+        text-decoration: none;
+    }
 }
 
 #container {
@@ -71,15 +71,15 @@ li {
     margin: 2rem 0 2rem;
     transition: 0.1s linear;
     user-select: none;
-}
 
-li:hover {
-    color: grey;
-    cursor: pointer;
-}
+    &:hover {
+        color: grey;
+        cursor: pointer;
+    }
 
-ul>li:last-child {
-    margin-top: 7rem;
+    &:last-child {
+        margin-top: 7rem;
+    }
 }
 
 #main-area {
@@ -87,43 +87,43 @@ ul>li:last-child {
     flex: 1;
     display: flex;
     flex-direction: column;
-}
 
-#filters {
-    border-bottom: solid 1px grey;
-    height: 8rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-}
+    &>#filters {
+        border-bottom: solid 1px grey;
+        height: 8rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
 
-#filters>* {
-    margin-left: 2rem;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
+        &>* {
+            margin-left: 2rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+    }
 
-#categories {
-    justify-content: space-between;
-}
+    &>#categories {
+        justify-content: space-between;
+    }
 
-.filter {
-    text-align: end;
-    margin: 0.2rem 0;
-    display: grid;
-    grid-template-columns: auto 1.2em;
-    gap: 0.5em;
-    cursor: pointer;
-    user-select: none;
-}
+    & .filter {
+        text-align: end;
+        margin: 0.2rem 0;
+        display: grid;
+        grid-template-columns: auto 1.2em;
+        gap: 0.5em;
+        cursor: pointer;
+        user-select: none;
+    }
 
-#importance>div {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    & #importance>div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 1266px) {
@@ -145,19 +145,19 @@ input[type='checkbox'] {
     cursor: pointer;
     display: grid;
     place-content: center;
-}
 
-input[type='checkbox']::before {
-    content: '';
-    width: 1rem;
-    height: 1rem;
-    transform: scale(0);
-    transform-origin: bottom left;
-    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-    transition: 90ms transform linear;
-    box-shadow: inset 1rem 1rem var(--teal);
-}
+    &::before {
+        content: '';
+        width: 1rem;
+        height: 1rem;
+        transform: scale(0);
+        transform-origin: bottom left;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        transition: 90ms transform linear;
+        box-shadow: inset 1rem 1rem var(--teal);
+    }
 
-input[type='checkbox']:checked::before {
-    transform: scale(1);
+    &:checked::before {
+        transform: scale(1);
+    }
 }
