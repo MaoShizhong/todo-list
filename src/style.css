@@ -79,11 +79,15 @@ main {
     }
 }
 
-dialog {
+dialog[open] {
     border: none;
     border-radius: 1.6rem;
     box-shadow: var(--smallShadow);
+    font-size: 1.2rem;
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
     animation: fadeIn 0.4s linear 1;
 
     @keyframes fadeIn {
@@ -97,23 +101,26 @@ dialog {
         backdrop-filter: blur(3px);
     }
 
+    & label,
+    input,
+    select,
+    textarea,
+    button {
+        font-family: inherit;
+        font-size: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
     &>form {
-        font-size: 1.2rem;
         display: flex;
         flex-direction: column;
         gap: 0.6rem;
 
-        &>label {
-            display: grid;
-            grid-template-columns: 7rem auto;
-        }
-
-        & input,
-        select,
-        textarea,
-        button {
-            font-family: inherit;
-            font-size: inherit;
+        &>div {
+            display: flex;
+            justify-content: space-between;
         }
 
         & textarea {
@@ -122,12 +129,12 @@ dialog {
             padding: 0.4rem;
             resize: none;
         }
+    }
 
-        &>div {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: space-between;
-        }
+    &>div {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
     }
 }
 

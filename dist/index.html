@@ -30,18 +30,18 @@
                 </div>
 
                 <dialog id="add-item-modal">
-                    <form>
-                        <label>
-                            Type:
-                            <select name="type">
-                                <option value="task" selected>Task</option>
-                                <option value="event">Event</option>
-                                <option value="reminder">Reminder</option>
-                            </select>
-                        </label>
+                    <label>
+                        Type:
+                        <select id="type-selector" name="type">
+                            <option value="task" selected>Task</option>
+                            <option value="event">Event</option>
+                            <option value="reminder">Reminder</option>
+                        </select>
+                    </label>
+                    <form id="item-details">
                         <label>
                             Name:
-                            <input type="text" required>
+                            <input type="text" autocomplete="off" required>
                         </label>
                         <label>
                             Due date:
@@ -49,7 +49,7 @@
                         </label>
                         <label>
                             Notes:
-                            <textarea></textarea>
+                            <textarea autocomplete="off"></textarea>
                         </label>
                         <label>
                             Importance:
@@ -59,13 +59,11 @@
                                 <option value="low">Low</option>
                             </select>
                         </label>
-                        <div>
-                            <button id="close-modal">Close</button>
-                            <button id="submit" type="submit">Submit</button>
-                        </div>
                     </form>
-
-                    
+                    <div>
+                        <button id="close-modal">Close</button>
+                        <button id="submit" type="submit">Submit</button>
+                    </div>
                 </dialog>
                 
                 <div id="main-area">
