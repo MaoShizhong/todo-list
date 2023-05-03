@@ -28,7 +28,11 @@ export function createNewEntry(e) {
 
     // reset form but retain default date/time values
     e.preventDefault();
+    closeAndResetForm(type);
+}
+
+function closeAndResetForm(typeSelector) {
     generateTaskForm();
-    type.selectedIndex = 0;
+    typeSelector.selectedIndex = 0;
     document.querySelector('#add-item-modal').close();
 }
