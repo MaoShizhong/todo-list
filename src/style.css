@@ -2,6 +2,7 @@
 
 :root {
     --teal: #72b4c5;
+    --smallShadow: 5px 5px 5px rgba(48, 48, 48, 0.308);
 }
 
 body {
@@ -69,12 +70,64 @@ main {
         background-color: var(--teal);
         border: none;
         border-radius: 1rem;
-        box-shadow: 4px 4px 5px rgba(48, 48, 48, 0.411);;
+        box-shadow: var(--smallShadow);
         cursor: pointer;
         font-family: inherit;
         font-size: 1.6rem;
         padding: 0.8rem;
         margin-right: 3rem;
+    }
+}
+
+dialog {
+    border: none;
+    border-radius: 1.6rem;
+    box-shadow: var(--smallShadow);
+    padding: 1.5rem;
+    animation: fadeIn 0.4s linear 1;
+
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    &::backdrop {
+        animation: fadeIn 0.4s linear 0;
+        background-color: #0000006c;
+        backdrop-filter: blur(3px);
+    }
+
+    &>form {
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+
+        &>label {
+            display: grid;
+            grid-template-columns: 7rem auto;
+        }
+
+        & input,
+        select,
+        textarea,
+        button {
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        & textarea {
+            height: 9rem;
+            width: 25rem;
+            padding: 0.4rem;
+            resize: none;
+        }
+
+        &>div {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+        }
     }
 }
 

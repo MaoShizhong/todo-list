@@ -28,9 +28,44 @@
                     </ul>
                     <button id="open-modal">Add</button>
                 </div>
-                <dialog id="modal">
-                    <div>Modal!</div>
-                    <button id="close-modal">Close</button>
+
+                <dialog id="add-item-modal">
+                    <form>
+                        <label>
+                            Type:
+                            <select name="type">
+                                <option value="task" selected>Task</option>
+                                <option value="event">Event</option>
+                                <option value="reminder">Reminder</option>
+                            </select>
+                        </label>
+                        <label>
+                            Name:
+                            <input type="text" required>
+                        </label>
+                        <label>
+                            Due date:
+                            <input type="date" required>
+                        </label>
+                        <label>
+                            Notes:
+                            <textarea></textarea>
+                        </label>
+                        <label>
+                            Importance:
+                            <select name="importance" required>
+                                <option value="high" selected>High</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </label>
+                        <div>
+                            <button id="close-modal">Close</button>
+                            <button id="submit" type="submit">Submit</button>
+                        </div>
+                    </form>
+
+                    
                 </dialog>
                 
                 <div id="main-area">
