@@ -59,6 +59,23 @@ main {
     height: 90%;
     width: 13rem;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    & button {
+        align-self: stretch;
+        background-color: var(--teal);
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 4px 4px 5px rgba(48, 48, 48, 0.411);;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 1.6rem;
+        padding: 0.8rem;
+        margin-right: 3rem;
+    }
 }
 
 ul {
