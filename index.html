@@ -41,11 +41,11 @@
                     <form id="item-details">
                         <label>
                             Name:
-                            <input type="text" autocomplete="off" required>
+                            <input type="text" autocomplete="off">
                         </label>
                         <label>
                             Due date:
-                            <input type="date" required>
+                            <input type="date">
                         </label>
                         <label>
                             Notes:
@@ -53,17 +53,19 @@
                         </label>
                         <label>
                             Importance:
-                            <select name="importance" required>
+                            <select name="importance">
                                 <option value="high" selected>High</option>
                                 <option value="medium" selected>Medium</option>
                                 <option value="low">Low</option>
                             </select>
                         </label>
+                        <div>
+                            <button id="close-modal" formmethod="dialog">Close</button>
+                            <button type="reset">Clear</button>
+                            <button id="submit" type="submit">Submit</button>
+                        </div>
                     </form>
-                    <div>
-                        <button id="close-modal">Close</button>
-                        <button id="submit" type="submit">Submit</button>
-                    </div>
+                    
                 </dialog>
                 
                 <div id="main-area">
