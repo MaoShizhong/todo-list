@@ -2,10 +2,12 @@ import { Task } from './tasks.js';
 import { Event } from './events.js';
 import { Reminder } from './reminders.js';
 import { generateTaskForm } from './type-changer.js';
+import { addEntryToDisplay } from './display-control.js';
 
 const entries = [];
 
 export function createNewEntry(e) {
+    e.preventDefault();
     const formValues = [];
 
     const formInputs = e.target.querySelectorAll('input, textarea, select');
@@ -24,10 +26,13 @@ export function createNewEntry(e) {
             break;
     }
 
-    // generateListEntry(entries.slice(-1));
+    console.log(entries);
+
+    const entry = entries[entries.length - 1];
+    addEntryToDisplay(entry, entries.indexOf(entry));
 
     // reset form but retain default date/time values
-    e.preventDefault();
+    // e.preventDefault();
     closeAndResetForm(type);
 }
 
