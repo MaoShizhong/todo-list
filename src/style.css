@@ -261,7 +261,7 @@ li {
         }
 
         & .delete {
-            margin-right: 1rem;
+            margin-right: 1.5rem;
         }
     }
 }
@@ -295,6 +295,13 @@ button {
     cursor: pointer;
     font-family: inherit;
     text-align: center;
+}
+
+.list-btn {
+    background-color: transparent;
+    border: 3px solid var(--teal);
+    color: var(--teal);
+    font-weight: bold;
 }
 
 .vert-flex {

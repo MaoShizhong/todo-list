@@ -7,7 +7,7 @@ export function addEntryToDisplay(entry, index) {
 
     listItem.appendChild(createLeftHalf(entry.constructor.name, entry.name, entry.notes));
     listItem.appendChild(createRightHalf(entry));
-    listItem.style.borderRight = `0.5em solid var(--${entry.importance})`;
+    listItem.style.boxShadow = `-0.5em 0 var(--${entry.importance}) inset`;
 
     const list = document.querySelector('#list');
     list.appendChild(listItem);
@@ -43,6 +43,7 @@ function createRightHalf(entry) {
     btnNames.forEach((name, i) => {
         const btn = document.createElement('button');
         btn.classList.add(classes[i]);
+        btn.classList.add('list-btn');
         btn.textContent = name;
         div.appendChild(btn);
     });
