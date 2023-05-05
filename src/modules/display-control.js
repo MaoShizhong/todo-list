@@ -3,6 +3,7 @@ export function addEntryToDisplay(entry, index) {
     listItem.classList.add('entry');
     listItem.dataset.index = index;
     listItem.dataset.category = entry.constructor.name;
+    listItem.dataset.importance = entry.importance;
 
     listItem.appendChild(createLeftHalf(entry.constructor.name, entry.name, entry.notes));
     listItem.appendChild(createRightHalf(entry));
