@@ -10,7 +10,7 @@
         <title>TooDoo | Organise your life</title>
     </head>
 
-    <body>
+    <body class="vert-flex">
         <header>
             <a id="logo" href="#">
                 TooDoo
@@ -19,7 +19,7 @@
         <main>
             <div id="container">
 
-                <div id="sidebar">
+                <div id="sidebar" class="vert-flex">
                     <ul>
                         <li>All items</li>
                         <li>Today</li>
@@ -29,7 +29,7 @@
                     <button id="open-modal">Add</button>
                 </div>
 
-                <dialog id="add-item-modal">
+                <dialog id="add-item-modal" >
                     <label>
                         Type:
                         <select id="type-selector" name="type">
@@ -38,7 +38,7 @@
                             <option value="reminder">Reminder</option>
                         </select>
                     </label>
-                    <form id="item-details">
+                    <form id="item-details" class="vert-flex">
                     </form>
                 </dialog>
                 
@@ -79,27 +79,14 @@
                     </div>
 
                     <div id="list">
-                        <div class="entry" data-index="0">
-                            <div class="left">
-                                <h4 class="category">Reminder</h2>
-                                <h4 class="name">Dentist appt</h4>
-                                <p class="notes">Notes</p>
-                                <button class="details">Details</button>
-                            </div>
-                            <div class="right">
-                                <p class="due"><b>Due: </b>24/03/2023</p>
-                                <button class="edit">Edit</button>
-                                <button class="delete">X</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <dialog id="details">
+                <!-- <dialog id="details">
                 </dialog>
 
                 <dialog id="edit-entry">
-                </dialog>
+                </dialog> -->
 
             </div>
         </main>
