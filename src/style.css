@@ -338,3 +338,8 @@ select:disabled {
     display: flex;
     flex-direction: column;
 }
+
+.category-hidden,
+.importance-hidden {
+    display: none !important;
+}
