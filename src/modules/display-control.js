@@ -1,3 +1,6 @@
+import { createForm } from "./forms";
+import { addTask, addEvent, addReminder } from './form-fields.js';
+
 export function addEntryToDisplay(entry, index) {
     const listItem = document.createElement('div');
     listItem.classList.add('entry');
@@ -48,6 +51,8 @@ function createRightHalf(entry) {
         div.appendChild(btn);
     });
 
+    div.firstChild.addEventListener('click', openDetails.bind(null, entry));
+
     const type = entry.constructor.name;
     if (type === 'Task') {
         appendDateField(div, 'Due: ', entry.dueDate);
@@ -56,7 +61,6 @@ function createRightHalf(entry) {
         appendDateField(div, 'Starts: ', entry.startDate);
     }
 
-    // div.firstChild.addEventListener('click', openDetails.bind(entry));
     return div;
 }
 
@@ -69,7 +73,28 @@ function appendDateField(div, heading, date) {
     div.insertBefore(p, div.firstChild);
 }
 
-// function openDetails(entry) {
-//     const details = document.querySelector('#details');
-//     details.replaceChildren();
-// }
+function openDetails(entry) {
+    const modal = document.querySelector('#details');
+    modal.showModal();
+    
+    const form = details.querySelector('form');
+    form.replaceChildren();
+
+    const fields = (entry.constructor.name === 'Task')  ? addTask
+                :  (entry.constructor.name === 'Event') ? addEvent
+                :  addReminder;
+    const fragment = createForm(fields, modal, entry.constructor.name === 'Event');
+    form.appendChild(fragment);
+
+    setEntryValues(entry, form);
+}
+
+function setEntryValues(entry, form) {
+    const fields = form.querySelectorAll('input, textarea, select');
+    const entryValues = [...Object.values(entry)];
+
+    fields.forEach((field, i) => {
+        field.value = (entryValues[i] === '') ? '-' : entryValues[i];
+        field.disabled = true;
+    });
+}

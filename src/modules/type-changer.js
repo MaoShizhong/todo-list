@@ -1,4 +1,5 @@
-import { createForm, createDateTimeDiv } from './forms.js';
+import { createForm } from './forms.js';
+import { addTask, addEvent, addReminder } from './form-fields.js';
 
 export function changeForm(e) {
     const type = e.target.value;
@@ -16,51 +17,31 @@ export function changeForm(e) {
 }
 
 export function generateTaskForm() {
+    const modal = document.querySelector('#add-item-modal');
     const form = document.querySelector('#item-details');
     form.replaceChildren();
 
-    const fields = [
-        'Name:<input type="text" autocomplete="off">',
-        'Due date:<input type="date"></input>',
-        'Notes:<textarea autocomplete="off"></textarea>',
-        'Importance:<select name="importance"><option value="high" selected>High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select>',
-    ];
-    const fragment = createForm(fields);
+    const fragment = createForm(addTask, modal);
     form.appendChild(fragment);
 
     form.querySelector('input[type="date"]').defaultValue = new Date().toISOString().slice(0, 10);
 }
 
 function generateEventForm() {
+    const modal = document.querySelector('#add-item-modal');
     const form = document.querySelector('#item-details');
     form.replaceChildren();
 
-    const fields = [
-        'Name:<input type="text" class="vert-flex" autocomplete="off">',
-        'Location:<input type="text" class="vert-flex" autocomplete="off">',
-        'Notes:<textarea autocomplete="off"></textarea>',
-        'Importance:<select name="importance"><option value="high" selected>High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select>',
-    ];
-    const fragment = createForm(fields);
+    const fragment = createForm(addEvent, modal, true);
     form.appendChild(fragment);
 
-    const start = createDateTimeDiv('Start date:', 'Start time:', '00:00');
-    const end = createDateTimeDiv('End date:', 'End time:', '23:59');
-
-    const location = form.querySelector('label:nth-child(3)');
-    form.insertBefore(start, location);
-    form.insertBefore(end, location);
 }
 
 function generateReminderForm() {
+    const modal = document.querySelector('#add-item-modal');
     const form = document.querySelector('#item-details');
     form.replaceChildren();
 
-    const fields = [
-        'Name:<input type="text" autocomplete="off">',
-        'Notes:<textarea autocomplete="off"></textarea>',
-        'Importance:<select name="importance"><option value="high" selected>High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select>',
-    ];
-    const fragment = createForm(fields);
+    const fragment = createForm(addReminder, modal);
     form.appendChild(fragment);
 }

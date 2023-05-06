@@ -323,6 +323,17 @@ button {
     }
 }
 
+input:disabled,
+textarea:disabled,
+select:disabled {
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-weight: bold;
+    padding: 0 !important;
+    appearance: none;
+}
+
 .vert-flex {
     display: flex;
     flex-direction: column;

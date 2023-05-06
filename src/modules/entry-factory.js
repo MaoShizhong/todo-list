@@ -25,8 +25,6 @@ export function createNewEntry(e) {
             break;
     }
 
-    console.log(entries);
-
     const entry = entries[entries.length - 1];
     addEntryToDisplay(entry, entries.indexOf(entry));
 

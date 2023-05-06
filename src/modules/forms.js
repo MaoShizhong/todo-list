@@ -1,4 +1,4 @@
-export function createForm(fields) {
+export function createForm(fields, modal, isEvent = false) {
     const fragment = document.createDocumentFragment();
 
     fields.forEach(field => {
@@ -7,12 +7,25 @@ export function createForm(fields) {
         fragment.appendChild(label);
     });
 
-    appendBtns(fragment);
-
+    if (isEvent) {
+        appendEventDateTime(fragment);
+    }
+ 
+    appendBtns(fragment, modal);
+    
     return fragment;
 }
 
-export function createDateTimeDiv(date, time, defaultTime) {
+function appendEventDateTime(form) {
+    const start = createDateTimeDiv('Start date:', 'Start time:', '00:00');
+    const end = createDateTimeDiv('End date:', 'End time:', '23:59');
+
+    const location = form.querySelector('label:nth-child(3)');
+    form.insertBefore(start, location);
+    form.insertBefore(end, location);
+}
+
+function createDateTimeDiv(date, time, defaultTime) {
     const dateField = document.createElement('div');
     const inputTypes = ['date', 'time'];
     
@@ -33,24 +46,26 @@ export function createDateTimeDiv(date, time, defaultTime) {
     return dateField;
 }
 
-function appendBtns(fragment) {
+function appendBtns(fragment, modal) {
+    const threeButtons = modal.id === 'add-item-modal';
+
     const btns = document.createElement('div');
-    const close = document.createElement('button');
-    const reset = document.createElement('button');
-    const submit = document.createElement('button');
+    const first = document.createElement('button');
+    const second = document.createElement('button');
+    const third = document.createElement('button');
 
-    const btnNames = ['Close','Clear', 'Submit'];
-    const btnIds = ['close-modal', 'reset', 'submit'];
-    const btnAttrVal = ['button', 'reset', 'submit'];
+    const btnsToAdd = threeButtons ? [first, second, third] : [first, second];
+    const btnNames = threeButtons ? ['Close', 'Clear', 'Submit'] : ['Close', 'Edit'];
+    const btnIds = threeButtons ? ['close-modal', 'reset', 'submit'] : ['close-modal', 'edit'];
+    const btnAttrVal = threeButtons ? ['button', 'reset', 'submit'] : ['button', 'button'];
 
-    [close, reset, submit].forEach((btn, i) => {
+    btnsToAdd.forEach((btn, i) => {
         btn.textContent = btnNames[i];
         btn.setAttribute('id', btnIds[i]);
         btn.setAttribute('type', btnAttrVal[i]);
-        btns.appendChild(btn)
+        btns.appendChild(btn);
     });
 
-    const modal = document.querySelector('#add-item-modal');
     btns.querySelector('#close-modal').addEventListener('click', () => modal.close());
     fragment.appendChild(btns);
 }
