@@ -102,6 +102,11 @@ dialog[open] {
         backdrop-filter: blur(3px);
     }
 
+    & label {
+        display: flex;
+        flex-direction: column;
+    }
+
     & label,
     input,
     select,
@@ -109,9 +114,11 @@ dialog[open] {
     button {
         font-family: inherit;
         font-size: inherit;
-        display: flex;
-        flex-direction: column;
         gap: 0.3rem;
+    }
+
+    & input[type="time"] {
+        width: 6rem;
     }
 
     &>form {
@@ -309,10 +316,10 @@ button {
     border: 3px solid var(--teal);
     color: var(--teal);
     font-weight: bold;
-    transition: 100ms linear;
+    transition: 50ms linear;
 
     &:hover {
-        transform: scale(1.15);
+        transform: scale(1.1);
     }
 }
 

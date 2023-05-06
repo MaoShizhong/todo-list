@@ -38,8 +38,8 @@ function createRightHalf(entry) {
     const div = document.createElement('div');
     div.classList.add('right');
 
-    const classes = ['details', 'edit', 'delete'];
-    const btnNames = ['Details', 'Edit', 'X'];
+    const classes = ['details', 'delete'];
+    const btnNames = ['Details', 'X'];
     btnNames.forEach((name, i) => {
         const btn = document.createElement('button');
         btn.classList.add(classes[i]);
@@ -56,6 +56,7 @@ function createRightHalf(entry) {
         appendDateField(div, 'Starts: ', entry.startDate);
     }
 
+    // div.firstChild.addEventListener('click', openDetails.bind(entry));
     return div;
 }
 
@@ -67,3 +68,8 @@ function appendDateField(div, heading, date) {
 
     div.insertBefore(p, div.firstChild);
 }
+
+// function openDetails(entry) {
+//     const details = document.querySelector('#details');
+//     details.replaceChildren();
+// }
