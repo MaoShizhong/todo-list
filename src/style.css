@@ -162,10 +162,6 @@ li {
         color: grey;
         cursor: pointer;
     }
-
-    &:last-child {
-        margin-top: 7rem;
-    }
 }
 
 #main-area {
@@ -345,6 +341,7 @@ select:disabled {
 }
 
 .category-hidden,
-.importance-hidden {
+.importance-hidden,
+.due-date-hidden {
     display: none !important;
 }

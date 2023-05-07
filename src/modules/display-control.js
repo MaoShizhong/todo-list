@@ -1,5 +1,6 @@
 import { createForm } from './forms';
-import { entries } from './entry-factory.js';
+import { entries, isNotReminder } from './entry-factory.js';
+import { setDue } from './dates.js';
 import { addTask, addEvent, addReminder } from './form-fields.js';
 
 export function addEntryToDisplay(entry, index) {
@@ -8,6 +9,10 @@ export function addEntryToDisplay(entry, index) {
     listItem.dataset.index = index;
     listItem.dataset.category = entry.constructor.name;
     listItem.dataset.importance = entry.importance;
+    
+    if (isNotReminder(entry)) {
+       listItem.dataset.due = setDue(entry);  
+    }
 
     listItem.appendChild(createLeftHalf(entry.constructor.name, entry.name, entry.notes));
     listItem.appendChild(createRightHalf(entry));
@@ -54,28 +59,25 @@ function createRightHalf(entry) {
 
     div.firstChild.addEventListener('click', openDetails.bind(null, entry));
 
-    const type = entry.constructor.name;
-    if (type === 'Task') {
-        appendDateField(div, 'Due: ', entry.dueDate);
-    }
-    else if (type === 'Event') {
-        appendDateField(div, 'Starts: ', entry.startDate);
+    if (isNotReminder(entry)) {
+        appendDateField(div, entry);
     }
 
     return div;
 }
 
-function appendDateField(div, heading, date) {
-    const ddMMyyyy = convertToDDMMYYYY(date);
+function appendDateField(div, entry) {
+    console.log(entry.due)
+    const ddMMyyyy = convertToDDMMYYYY(entry.due);
     const p = document.createElement('p');
     p.classList.add('due');
-    p.innerHTML = `<b>${heading}</b> ${ddMMyyyy}`;
+    p.innerHTML = `<b>${entry.constructor.name === 'Task' ? 'Due:' : 'Starts:'}</b> ${ddMMyyyy}`;
 
     div.insertBefore(p, div.firstChild);
 }
 
 function convertToDDMMYYYY(date) {
-    return `${date.slice(-2)}/${date.slice(5, 7)}/${date.slice(0, 4)}`;
+    return date === null ? 0 : `${date.slice(-2)}/${date.slice(5, 7)}/${date.slice(0, 4)}`;
 }
 
 function openDetails(entry) {
@@ -88,10 +90,11 @@ function openDetails(entry) {
     const form = details.querySelector('form');
     form.replaceChildren();
 
-    const fields = (entry.constructor.name === 'Task')  ? addTask
-                :  (entry.constructor.name === 'Event') ? addEvent
-                :                                         addReminder;
-    const fragment = createForm(fields, modal, entry.constructor.name === 'Event');
+    const category = entry.constructor.name;
+    const fields = (category === 'Task')  ? addTask
+                :  (category === 'Event') ? addEvent
+                :  addReminder;
+    const fragment = createForm(fields, modal, category === 'Event');
     form.appendChild(fragment);
 
     setEntryValues(entry, form);
@@ -115,7 +118,8 @@ function setEntryValues(entry, form) {
 }
 
 function enableEdit() {
-    const inputs = document.querySelectorAll('#details input, #details select, #details textarea');
+    const inputs = document.querySelector('#details')
+                           .querySelectorAll('input, textarea, select');
     inputs.forEach(input => input.disabled = false);
 
     changeEditBtnToCancelSave();
@@ -185,12 +189,18 @@ function updateEntryVisualsInDOM(entry) {
     const listItem = document.querySelector(`[data-index="${index}"]`);
 
     const fieldsToUpdate = listItem.querySelectorAll('h4, p');
-    const due = (entry.constructor.name === 'Event') ? entry.startDate
-            :   (entry.constructor.name === 'Task')  ? entry.dueDate
-            :                                          null;
-    const valuesToInsert = [entry.constructor.name, entry.name, entry.notes, convertToDDMMYYYY(due)];
+    const due = isNotReminder(entry) ? entry.due
+                                     : null;
 
-    fieldsToUpdate.forEach((field, i) => field.textContent = valuesToInsert[i]);
+    const valuesToInsert = [
+        entry.constructor.name,
+        entry.name, entry.notes,
+        `<b>${entry.constructor.name === 'Task' ? 'Due:' : 'Starts:'}</b> ${convertToDDMMYYYY(due)}`
+    ];
+
+    // valuesToInsert[2] will not be read for a Reminder update
+    fieldsToUpdate.forEach((field, i) => field.innerHTML = valuesToInsert[i]);
     listItem.style.boxShadow = `-0.5em 0 var(--${entry.importance}) inset`;
     listItem.dataset.importance = entry.importance;
+    listItem.dataset.due = isNotReminder(entry) ? setDue(entry) : null;
 }

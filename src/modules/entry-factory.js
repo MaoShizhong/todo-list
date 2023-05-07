@@ -38,3 +38,7 @@ function closeAndResetForm(typeSelector) {
     typeSelector.selectedIndex = 0;
     document.querySelector('#add-item-modal').close();
 }
+
+export function isNotReminder(object) {
+    return object.constructor.name !== 'Reminder';
+}

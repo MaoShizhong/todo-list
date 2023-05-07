@@ -29,7 +29,6 @@ function createDateTimeDiv(date, time, defaultTime) {
     const dateField = document.createElement('div');
     const inputTypes = ['date', 'time'];
     
-
     [date, time].forEach((arg, i) => {
         const label = document.createElement('label');
         const input = document.createElement('input');

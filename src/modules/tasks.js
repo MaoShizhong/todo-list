@@ -12,4 +12,12 @@ export class Task {
         this.notes = notes;
         this.importance = importance;
     }
+
+    get due() {
+        return this.dueDate;
+    }
+
+    get dueAsDate() {
+        return new Date(this.dueDate);
+    }
 }

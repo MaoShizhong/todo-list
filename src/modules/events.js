@@ -20,4 +20,12 @@ export class Event {
         this.notes = notes;
         this.importance = importance;
     }
+
+    get due() {
+        return this.startDate;
+    }
+
+    get dueAsDate() {
+        return new Date(this.startDate);
+    }
 }

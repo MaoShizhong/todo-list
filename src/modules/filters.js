@@ -21,3 +21,39 @@ export function filterImportance(e) {
         }
     })
 }
+
+export function filterDate(e) {
+    const filter = e.target.getAttribute('value');
+    switch (filter) {
+        case 'all':
+            showAllItems();
+            break;
+        case 'today':
+            showTodaysItems();
+            break;
+        case 'week':
+            showThisWeeksItems();
+            break;
+    }
+}
+
+function showAllItems() {
+    const entries = document.querySelectorAll('#list>*');
+    entries.forEach(entry => entry.classList.remove('due-date-hidden'));
+}
+
+function showTodaysItems() {
+    const today = document.querySelectorAll('[data-due="today"]');
+    const notToday = document.querySelectorAll('#list>*:not([data-due="today"])');
+    
+    today.forEach(entry => entry.classList.remove('due-date-hidden'));
+    notToday.forEach(entry => entry.classList.add('due-date-hidden'));
+}
+
+function showThisWeeksItems() {
+    const thisWeek = document.querySelectorAll('[data-due="week"]');
+    const notThisWeek = document.querySelectorAll('#list>*:not([data-due="week"])');
+    
+    thisWeek.forEach(entry => entry.classList.remove('due-date-hidden'));
+    notThisWeek.forEach(entry => entry.classList.add('due-date-hidden'));
+}
