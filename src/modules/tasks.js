@@ -4,6 +4,7 @@ export class Task {
         this.dueDate = dueDate;
         this.notes = notes;
         this.importance = importance;
+        this.category = 'Task';
     }
 
     updateDetails(name, dueDate, notes, importance) {

@@ -3,6 +3,7 @@ export class Reminder {
         this.name = name;
         this.notes = notes;
         this.importance = importance;
+        this.category = 'Task';
     }
     
     updateDetails(name, notes, importance) {

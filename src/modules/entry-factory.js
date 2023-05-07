@@ -3,6 +3,7 @@ import { Event } from './events.js';
 import { Reminder } from './reminders.js';
 import { generateTaskForm } from './type-changer.js';
 import { addEntryToDisplay } from './display-control.js';
+import { populateStorage } from './local-storage.js';
 
 export const entries = [];
 
@@ -31,14 +32,12 @@ export function createNewEntry(e) {
     // reset form but retain default date/time values
     e.preventDefault();
     closeAndResetForm(type);
+
+    populateStorage();
 }
 
 function closeAndResetForm(typeSelector) {
     generateTaskForm();
     typeSelector.selectedIndex = 0;
     document.querySelector('#add-item-modal').close();
-}
-
-export function isNotReminder(object) {
-    return object.constructor.name !== 'Reminder';
 }

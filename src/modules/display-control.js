@@ -1,16 +1,17 @@
 import { createForm } from './forms';
-import { entries, isNotReminder } from './entry-factory.js';
 import { setDue } from './dates.js';
+import { entries } from './entry-factory.js';
+import { populateStorage } from './local-storage.js';
 import { addTask, addEvent, addReminder } from './form-fields.js';
 
 export function addEntryToDisplay(entry, index) {
     const listItem = document.createElement('div');
     listItem.classList.add('entry');
     listItem.dataset.index = index;
-    listItem.dataset.category = entry.constructor.name;
+    listItem.dataset.category = entry.category;
     listItem.dataset.importance = entry.importance;
     
-    if (isNotReminder(entry)) {
+    if (entry.category !== 'Reminder') {
        listItem.dataset.due = setDue(entry);  
     }
 
@@ -59,7 +60,7 @@ function createRightHalf(entry) {
 
     div.firstChild.addEventListener('click', openDetails.bind(null, entry));
 
-    if (isNotReminder(entry)) {
+    if (entry.category !== 'Reminder') {
         appendDateField(div, entry);
     }
 
@@ -67,7 +68,6 @@ function createRightHalf(entry) {
 }
 
 function appendDateField(div, entry) {
-    console.log(entry.due)
     const ddMMyyyy = convertToDDMMYYYY(entry.due);
     const p = document.createElement('p');
     p.classList.add('due');
@@ -174,6 +174,7 @@ function saveUpdatedDetails() {
     const entry = entries[Number(modal.dataset.item)];
 
     entry.updateDetails(...details);
+    populateStorage();
 
     fields.forEach(field => {
         field.defaultValue = field.value;
@@ -189,12 +190,13 @@ function updateEntryVisualsInDOM(entry) {
     const listItem = document.querySelector(`[data-index="${index}"]`);
 
     const fieldsToUpdate = listItem.querySelectorAll('h4, p');
-    const due = isNotReminder(entry) ? entry.due
+    const due = entry.category !== 'Reminder' ? entry.due
                                      : null;
 
     const valuesToInsert = [
         entry.constructor.name,
-        entry.name, entry.notes,
+        entry.name,
+        entry.notes,
         `<b>${entry.constructor.name === 'Task' ? 'Due:' : 'Starts:'}</b> ${convertToDDMMYYYY(due)}`
     ];
 
@@ -202,5 +204,5 @@ function updateEntryVisualsInDOM(entry) {
     fieldsToUpdate.forEach((field, i) => field.innerHTML = valuesToInsert[i]);
     listItem.style.boxShadow = `-0.5em 0 var(--${entry.importance}) inset`;
     listItem.dataset.importance = entry.importance;
-    listItem.dataset.due = isNotReminder(entry) ? setDue(entry) : null;
+    listItem.dataset.due = entry.category !== 'Reminder' ? setDue(entry) : null;
 }
