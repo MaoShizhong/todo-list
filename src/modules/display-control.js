@@ -90,7 +90,7 @@ function openDetails(entry) {
 
     const fields = (entry.constructor.name === 'Task')  ? addTask
                 :  (entry.constructor.name === 'Event') ? addEvent
-                :  addReminder;
+                :                                         addReminder;
     const fragment = createForm(fields, modal, entry.constructor.name === 'Event');
     form.appendChild(fragment);
 
@@ -105,7 +105,8 @@ function setEntryValues(entry, form) {
     const entryValues = [...Object.values(entry)];
 
     fields.forEach((field, i) => {
-        field.defaultValue = (entryValues[i] === '') ? '-' : entryValues[i];
+        // retain '-' for empty name field only
+        field.defaultValue = (entryValues[i] === '' && i === 0) ? '-' : entryValues[i];
         field.disabled = true;
         if (field.tagName === 'SELECT') {
             field.value = entryValues[i];
@@ -188,5 +189,7 @@ function updateEntryVisualsInDOM(entry) {
             :   (entry.constructor.name === 'Task')  ? entry.dueDate
             :                                          null;
     const valuesToInsert = [entry.constructor.name, entry.name, entry.notes, convertToDDMMYYYY(due)];
+
     fieldsToUpdate.forEach((field, i) => field.textContent = valuesToInsert[i]);
+    listItem.style.boxShadow = `-0.5em 0 var(--${entry.importance}) inset`;
 }
