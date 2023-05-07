@@ -1,4 +1,5 @@
-import { createForm } from "./forms";
+import { createForm } from './forms';
+import { entries } from './entry-factory.js';
 import { addTask, addEvent, addReminder } from './form-fields.js';
 
 export function addEntryToDisplay(entry, index) {
@@ -65,7 +66,7 @@ function createRightHalf(entry) {
 }
 
 function appendDateField(div, heading, date) {
-    const ddMMyyyy = `${date.slice(-2)}/${date.slice(5, 7)}/${date.slice(0, 4)}`;
+    const ddMMyyyy = convertToDDMMYYYY(date);
     const p = document.createElement('p');
     p.classList.add('due');
     p.innerHTML = `<b>${heading}</b> ${ddMMyyyy}`;
@@ -73,9 +74,16 @@ function appendDateField(div, heading, date) {
     div.insertBefore(p, div.firstChild);
 }
 
+function convertToDDMMYYYY(date) {
+    return `${date.slice(-2)}/${date.slice(5, 7)}/${date.slice(0, 4)}`;
+}
+
 function openDetails(entry) {
     const modal = document.querySelector('#details');
     modal.showModal();
+
+    // tie modal to instance of object
+    modal.dataset.item = entries.indexOf(entry);
     
     const form = details.querySelector('form');
     form.replaceChildren();
@@ -87,6 +95,9 @@ function openDetails(entry) {
     form.appendChild(fragment);
 
     setEntryValues(entry, form);
+
+    const edit = modal.querySelector('#edit');
+    edit.addEventListener('click', enableEdit);
 }
 
 function setEntryValues(entry, form) {
@@ -94,7 +105,88 @@ function setEntryValues(entry, form) {
     const entryValues = [...Object.values(entry)];
 
     fields.forEach((field, i) => {
-        field.value = (entryValues[i] === '') ? '-' : entryValues[i];
+        field.defaultValue = (entryValues[i] === '') ? '-' : entryValues[i];
+        field.disabled = true;
+        if (field.tagName === 'SELECT') {
+            field.value = entryValues[i];
+        }
+    });
+}
+
+function enableEdit() {
+    const inputs = document.querySelectorAll('#details input, #details select, #details textarea');
+    inputs.forEach(input => input.disabled = false);
+
+    changeEditBtnToCancelSave();
+}
+
+function changeEditBtnToCancelSave() {
+    const replacementBtns = document.createDocumentFragment();
+    const btns = {'cancel': 'Cancel', 'save': 'Save'};
+    for (const id in btns) {
+        const button = document.createElement('button');
+        button.setAttribute('id', id);
+        button.setAttribute('type', 'button');
+        button.textContent = btns[id];
+        replacementBtns.appendChild(button);
+    }
+
+    const btnDiv = document.querySelector('#details>form>div:last-child');
+    btnDiv.replaceChild(replacementBtns, btnDiv.lastChild);
+
+    cancel.addEventListener('click', revertDetails);
+    save.addEventListener('click', saveUpdatedDetails);
+}
+
+function changeCancelSaveToEdit() {
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.setAttribute('id', 'edit');
+    editBtn.setAttribute('type', 'button');
+    editBtn.addEventListener('click', enableEdit);
+
+    const btnDiv = document.querySelector('#details>form>div:last-child');
+    btnDiv.removeChild(btnDiv.lastChild);
+    btnDiv.replaceChild(editBtn, btnDiv.lastChild);
+}
+
+function revertDetails() {
+    const fields = document.querySelector('#details')
+                           .querySelectorAll('input, textarea, select');
+    fields.forEach(field => {
+        field.value = field.defaultValue;
         field.disabled = true;
     });
+
+    changeCancelSaveToEdit();
+}
+
+function saveUpdatedDetails() {
+    const modal = document.querySelector('#details');
+    const fields = modal.querySelectorAll('input, textarea, select');
+    const fieldValues = Array.from(fields).map(field => field.value);
+    const details = [...fieldValues];
+    const entry = entries[Number(modal.dataset.item)];
+
+    entry.updateDetails(...details);
+
+    fields.forEach(field => {
+        field.defaultValue = field.value;
+        field.disabled = true;
+    });
+    changeCancelSaveToEdit();
+
+    updateEntryVisualsInDOM(entry);
+}
+
+function updateEntryVisualsInDOM(entry) {
+    const index = entries.indexOf(entry);
+    const listItem = document.querySelector(`[data-index="${index}"]`);
+
+    const fieldsToUpdate = listItem.querySelectorAll('h4, p');
+    const due = (entry.constructor.name === 'Event') ? entry.startDate
+            :   (entry.constructor.name === 'Task')  ? entry.dueDate
+            :                                          null;
+    const valuesToInsert = [entry.constructor.name, entry.name, entry.notes, convertToDDMMYYYY(due)];
+    fieldsToUpdate.forEach((field, i) => field.textContent = valuesToInsert[i]);
 }

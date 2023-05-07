@@ -4,7 +4,7 @@ import { Reminder } from './reminders.js';
 import { generateTaskForm } from './type-changer.js';
 import { addEntryToDisplay } from './display-control.js';
 
-const entries = [];
+export const entries = [];
 
 export function createNewEntry(e) {
     const formValues = [];

@@ -4,4 +4,10 @@ export class Reminder {
         this.notes = notes;
         this.importance = importance;
     }
+    
+    updateDetails(name, notes, importance) {
+        this.name = name;
+        this.notes = notes;
+        this.importance = importance;
+    }
 }
