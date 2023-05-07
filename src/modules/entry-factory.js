@@ -42,3 +42,12 @@ function closeAndResetForm(typeSelector) {
     typeSelector.selectedIndex = 0;
     document.querySelector('#add-item-modal').close();
 }
+
+export function updateDataIndexes(divs, i) {
+    divs.forEach(div => {
+        const index = Number(div.dataset.index);
+        if (index > i) {
+            div.dataset.index = index - 1;
+        }
+    });
+}

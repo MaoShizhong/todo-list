@@ -1,6 +1,6 @@
 import { createForm } from './forms';
 import { setDue } from './dates.js';
-import { entries } from './entry-factory.js';
+import { entries, updateDataIndexes } from './entry-factory.js';
 import { populateStorage } from './local-storage.js';
 import { addTask, addEvent, addReminder } from './form-fields.js';
 
@@ -59,6 +59,7 @@ function createRightHalf(entry) {
     });
 
     div.firstChild.addEventListener('click', openDetails.bind(null, entry));
+    div.querySelector('.delete').addEventListener('click', deleteItem.bind(null, entry));
 
     if (entry.category !== 'Reminder') {
         appendDateField(div, entry);
@@ -205,4 +206,14 @@ function updateEntryVisualsInDOM(entry) {
     listItem.style.boxShadow = `-0.5em 0 var(--${entry.importance}) inset`;
     listItem.dataset.importance = entry.importance;
     listItem.dataset.due = entry.category !== 'Reminder' ? setDue(entry) : null;
+}
+
+function deleteItem(entry) {
+    const i = entries.indexOf(entry);
+    const listItems = document.querySelectorAll('.entry');
+    entries.splice(i, 1);
+    listItems[i].replaceChildren();
+    listItems[i].remove();
+    updateDataIndexes(listItems, i);
+    populateStorage();
 }
