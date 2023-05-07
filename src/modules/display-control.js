@@ -192,4 +192,5 @@ function updateEntryVisualsInDOM(entry) {
 
     fieldsToUpdate.forEach((field, i) => field.textContent = valuesToInsert[i]);
     listItem.style.boxShadow = `-0.5em 0 var(--${entry.importance}) inset`;
+    listItem.dataset.importance = entry.importance;
 }
