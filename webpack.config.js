@@ -1,4 +1,5 @@
 const path = require('path');
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     mode: 'development',
@@ -17,6 +18,14 @@ module.exports = {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader', 'postcss-loader',],
             },
+        ],
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                extractComments: false,
+            }),
         ],
     },
 };
