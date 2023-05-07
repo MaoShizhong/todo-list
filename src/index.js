@@ -7,7 +7,7 @@ import './style.css';
 // initialise using 'task' as default display type
 generateTaskForm();
 
-// load stored list items
+// create storage or if storage exists, load stored list items
 if (!localStorage.getItem('entries')) {
     populateStorage();
 }

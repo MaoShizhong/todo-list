@@ -7,7 +7,7 @@ export function filterCategories(e) {
         else {
             entry.classList.add('category-hidden');
         }
-    })
+    });
 }
 
 export function filterImportance(e) {
@@ -19,7 +19,7 @@ export function filterImportance(e) {
         else {
             entry.classList.add('importance-hidden');
         }
-    })
+    });
 }
 
 export function filterDate(e) {
@@ -51,8 +51,9 @@ function showTodaysItems() {
 }
 
 function showThisWeeksItems() {
-    const thisWeek = document.querySelectorAll('[data-due="week"]');
-    const notThisWeek = document.querySelectorAll('#list>*:not([data-due="week"])');
+    const weekSelector = '[data-due="week"], [data-due="today"]';
+    const thisWeek = document.querySelectorAll(`${weekSelector}`);
+    const notThisWeek = document.querySelectorAll(`#list>*:not(${weekSelector})`);
     
     thisWeek.forEach(entry => entry.classList.remove('due-date-hidden'));
     notThisWeek.forEach(entry => entry.classList.add('due-date-hidden'));

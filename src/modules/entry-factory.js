@@ -8,6 +8,7 @@ import { populateStorage } from './local-storage.js';
 export const entries = [];
 
 export function createNewEntry(e) {
+    e.preventDefault();
     const formValues = [];
 
     const formInputs = e.target.querySelectorAll('input, textarea, select');
@@ -30,7 +31,7 @@ export function createNewEntry(e) {
     addEntryToDisplay(entry, entries.indexOf(entry));
 
     // reset form but retain default date/time values
-    e.preventDefault();
+    // e.preventDefault();
     closeAndResetForm(type);
 
     populateStorage();

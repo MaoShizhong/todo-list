@@ -17,10 +17,10 @@ export function displayListItemsFromStorage() {
             case 'Task':
                 entries.push(new Task(...constructorArgs));
                 break;
-            case 'event':
+            case 'Event':
                 entries.push(new Event(...constructorArgs));
                 break;
-            case 'reminder':
+            case 'Reminder':
                 entries.push(new Reminder(...constructorArgs));
                 break;
         }
