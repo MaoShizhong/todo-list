@@ -94,7 +94,7 @@ function openDetails(entry) {
     const fields = (entry.category === 'Task')  ? addTask
                 :  (entry.category === 'Event') ? addEvent
                                                 : addReminder;
-    const fragment = createForm(fields, modal, category === 'Event');
+    const fragment = createForm(fields, modal, entry.category === 'Event');
     form.appendChild(fragment);
 
     setEntryValues(entry, form);
