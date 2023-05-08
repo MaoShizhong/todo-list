@@ -15,7 +15,7 @@ export function addEntryToDisplay(entry, index) {
        listItem.dataset.due = setDue(entry);  
     }
 
-    listItem.appendChild(createLeftHalf(entry.constructor.name, entry.name, entry.notes));
+    listItem.appendChild(createLeftHalf(entry.category, entry.name, entry.notes));
     listItem.appendChild(createRightHalf(entry));
     listItem.style.boxShadow = `-0.5em 0 var(--${entry.importance}) inset`;
 
@@ -72,7 +72,7 @@ function appendDateField(div, entry) {
     const ddMMyyyy = convertToDDMMYYYY(entry.due);
     const p = document.createElement('p');
     p.classList.add('due');
-    p.innerHTML = `<b>${entry.constructor.name === 'Task' ? 'Due:' : 'Starts:'}</b> ${ddMMyyyy}`;
+    p.innerHTML = `<b>${entry.category === 'Task' ? 'Due:' : 'Starts:'}</b> ${ddMMyyyy}`;
 
     div.insertBefore(p, div.firstChild);
 }
@@ -91,10 +91,9 @@ function openDetails(entry) {
     const form = details.querySelector('form');
     form.replaceChildren();
 
-    const category = entry.constructor.name;
-    const fields = (category === 'Task')  ? addTask
-                :  (category === 'Event') ? addEvent
-                :  addReminder;
+    const fields = (entry.category === 'Task')  ? addTask
+                :  (entry.category === 'Event') ? addEvent
+                                                : addReminder;
     const fragment = createForm(fields, modal, category === 'Event');
     form.appendChild(fragment);
 
@@ -195,10 +194,10 @@ function updateEntryVisualsInDOM(entry) {
                                      : null;
 
     const valuesToInsert = [
-        entry.constructor.name,
+        entry.category,
         entry.name,
         entry.notes,
-        `<b>${entry.constructor.name === 'Task' ? 'Due:' : 'Starts:'}</b> ${convertToDDMMYYYY(due)}`
+        `<b>${entry.category === 'Task' ? 'Due:' : 'Starts:'}</b> ${convertToDDMMYYYY(due)}`
     ];
 
     // valuesToInsert[2] will not be read for a Reminder update
