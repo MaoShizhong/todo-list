@@ -212,6 +212,9 @@ function updateEntryVisualsInDOM(entry) {
     if (listItem.dataset.due === 'past') {
         listItem.classList.add('greyed');
     }
+    else {
+        listItem.classList.remove('greyed');
+    }
 }
 
 function deleteItem(entry) {
