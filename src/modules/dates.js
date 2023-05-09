@@ -2,9 +2,16 @@ export function setDue(entry) {
     const currentDate = new Date();
     const due = entry.dueAsDate;
 
-    return isSameDay(currentDate, due)  ? 'today'
+    return isInPast(currentDate, due)   ? 'past'
+        :  isSameDay(currentDate, due)  ? 'today'
         :  isSameWeek(currentDate, due) ? 'week'
         :  'future';
+}
+
+function isInPast(current, toCheck) {
+    current.setHours(0, 0, 0, 0);
+    toCheck.setHours(0, 0, 0, 0);
+    return toCheck < current;
 }
 
 function isSameDay(current, toCheck) {

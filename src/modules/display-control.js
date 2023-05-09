@@ -14,6 +14,9 @@ export function addEntryToDisplay(entry, index) {
     if (entry.category !== 'Reminder') {
        listItem.dataset.due = setDue(entry);  
     }
+    if (listItem.dataset.due === 'past') {
+        listItem.classList.add('greyed');
+    }
 
     listItem.appendChild(createLeftHalf(entry.category, entry.name, entry.notes));
     listItem.appendChild(createRightHalf(entry));
@@ -205,6 +208,10 @@ function updateEntryVisualsInDOM(entry) {
     listItem.style.boxShadow = `-0.5em 0 var(--${entry.importance}) inset`;
     listItem.dataset.importance = entry.importance;
     listItem.dataset.due = entry.category !== 'Reminder' ? setDue(entry) : null;
+
+    if (listItem.dataset.due === 'past') {
+        listItem.classList.add('greyed');
+    }
 }
 
 function deleteItem(entry) {
