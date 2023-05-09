@@ -13,3 +13,4 @@ Lots of challenges face with this:
 - More practice with more advanced CSS selectors
 - Learning about the dialog tag and built-in modal methods
 - More practice with basic CSS animations
+- Understanding more about webpack, mainly differences between development/production mode, and how to use different plugins properly (e.g. HTMLWebpackPlugin)
