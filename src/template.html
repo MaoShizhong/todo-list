@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>TooDoo | Organise your life</title>
+    </head>
+
+    <body class="vert-flex">
+        <header>
+            <a id="logo" href="#">
+                TooDoo
+            </a>
+        </header>
+        <main>
+            <div id="container">
+
+                <div id="sidebar" class="vert-flex">
+                    <ul>
+                        <li value="all">All items</li>
+                        <li value="today">Today</li>
+                        <li value="week">This week</li>
+                    </ul>
+                    <button id="open-modal">Add</button>
+                </div>
+
+                <dialog id="add-item-modal" >
+                    <label>
+                        Type:
+                        <select id="type-selector" name="type">
+                            <option value="task" selected>Task</option>
+                            <option value="event">Event</option>
+                            <option value="reminder">Reminder</option>
+                        </select>
+                    </label>
+                    <form id="item-details" class="vert-flex">
+                    </form>
+                </dialog>
+                
+                <div id="main-area">
+                    <div id="filters">
+                        <div id="categories">
+                            <b>Categories:</b>
+                            <label class="filter">
+                                Tasks
+                                <input type="checkbox" name="Task" value="task" checked>
+                            </label>
+                            <label class="filter">
+                                Events
+                                <input type="checkbox" name="Event" value="event" checked>
+                            </label>
+                            <label class="filter">
+                                Reminders
+                                <input type="checkbox" name="Reminder" value="reminder" checked>
+                            </label>
+                        </div>
+                        <div id="importance">
+                            <b>Importance:</b>
+                            <div>
+                                <label class="filter">
+                                    High
+                                    <input type="checkbox" name="high" value="high" checked>
+                                </label>
+                                <label class="filter">
+                                    Medium
+                                    <input type="checkbox" name="medium" value="medium" checked>
+                                </label>
+                                <label class="filter">
+                                    Low
+                                    <input type="checkbox" name="low" value="low" checked>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="list">
+                    </div>
+                </div>
+
+                <dialog id="details">
+                    <form class="vert-flex">
+                    </form>
+                </dialog>
+
+            </div>
+        </main>
+        
+    </body>
+
+</html>
